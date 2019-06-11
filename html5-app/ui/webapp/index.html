@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Detail Page</title>
+	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_belize" data-sap-ui-resourceroots='{"sap.iot.noah.fsm.detailpage": "./"}'
+		data-sap-ui-libs="sap.m,sap.suite.ui.commons" data-sap-ui-compatVersion="edge" data-sap-ui-async="true"
+		data-sap-ui-frameOptions="trusted">
+		</script>
+
+	<script>
+		sap.ui.getCore().attachInit(function () {
+
+			// reading the query parameters from the URL
+			var url = window.location.href;
+			var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+			// create a map
+			var params = queryString.split("&");
+			var oParameterMap = {};
+			for (var i = 0; i < params.length; i++) {
+				if (params[i].split("=").length == 2) {
+					oParameterMap[params[i].split("=")[0]] = decodeURI(params[i].split("=")[1]);
+				}
+			}
+
+			var model = new sap.ui.model.json.JSONModel();
+			model.setData(oParameterMap);
+			sap.ui.getCore().setModel(model, "parameterModel");
+
+			jQuery.sap.require("sap.ui.model.odata.v2.ODataModel");
+			jQuery.sap.require("sap.ui.model.odata.ODataModel");
+
+			var overrideODataRead = function () {
+				var _readV2 = sap.ui.model.odata.v2.ODataModel.prototype.read;
+				var _newReadV2 = function () {
+					return _readV2.apply(this, arguments);
+				};
+				sap.ui.model.odata.v2.ODataModel.prototype.read = _newReadV2;
+
+				var _read = sap.ui.model.odata.ODataModel.prototype.read;
+				var _newRead = function () {
+					return _read.apply(this, arguments);
+				};
+				sap.ui.model.odata.ODataModel.prototype.read = _newRead;
+			};
+			overrideODataRead();
+
+			var overrideoDataSetHeaders = function () {
+				var _setHeadersV2 = sap.ui.model.odata.v2.ODataModel.prototype.setHeaders;
+				var _newSetHeadersV2 = function () {
+					var headers = arguments[0];
+					if (!headers) {
+						headers = {};
+					}
+					headers["Authorization"] = "Bearer " + oParameterMap["token"];
+					arguments[0] = headers;
+
+					return _setHeadersV2.apply(this, arguments);
+				};
+				sap.ui.model.odata.v2.ODataModel.prototype.setHeaders = _newSetHeadersV2;
+
+
+				var _setHeaders = sap.ui.model.odata.ODataModel.prototype.setHeaders;
+				var _newSetHeaders = function () {
+					var headers = arguments[0];
+					if (!headers) {
+						headers = {};
+					}
+					headers["Authorization"] = "Bearer " + oParameterMap["token"];
+					arguments[0] = headers;
+					return _setHeaders.apply(this, arguments);
+				};
+				sap.ui.model.odata.ODataModel.prototype.setHeaders = _newSetHeaders;
+			};
+			overrideoDataSetHeaders();
+
+			new sap.m.Shell({
+				appWidthLimited: false,
+				app: new sap.ui.core.ComponentContainer({
+					height: "100%",
+					name: "sap.iot.noah.fsm.detailpage"
+				})
+			}).placeAt("content");
+		});
+	</script>
+</head>
+
+<body class="sapUiBody">
+	<div id="content" data-sap-ui-component data-name="sap.iot.noah.fsm.detailpage" data-id="container"
+		data-settings='{"id" : "detailpage"}'></div>
+</body>
+
+</html>

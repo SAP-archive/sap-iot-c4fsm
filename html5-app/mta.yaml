@@ -1,0 +1,28 @@
+ID: FSPUIApp
+_schema-version: '3.1'
+parameters:
+  deploy_mode: html5-repo
+version: 0.0.1
+modules:
+  - name: fsm-html5
+    type: html5
+    path: ui
+    build-parameters:
+      builder: grunt
+  - name: reference_fsm_html5_deployer
+    type: com.sap.html5.application-content
+    path: ui_deployer
+    requires:
+      - name: reference_fsm_html5_repo_host
+    build-parameters:
+      requires:
+        - name: fsm-html5
+          artifacts:
+            - './*'
+          target-path: resources/fsm-html5
+resources:
+  - name: reference_fsm_html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service

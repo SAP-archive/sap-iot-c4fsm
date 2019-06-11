@@ -1,0 +1,134 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.iot.noah.fsm.detailpage",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"ach": "ach",
+		"dataSources": {
+            "mainService": {
+                "uri": "/destinations/analytics-thing-sap/noah.fsm190315095925.noah.fsm.ci.robot:ROBOT_BATTERY_MAIN/",
+                "type": "OData",
+                "settings" : {
+					"odataVersion" : "2.0"
+				}
+			},
+			"queryModelerService": {
+                "uri": "/destinations/query-modeler/odata/v4/6469548c-efa3-43e4-b63f-7bdd9b48235d/RobotVoltage/v1/",
+                "type": "OData",
+                "settings" : {
+					"odataVersion" : "4.0"
+				}
+            }
+        },
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "sap.iot.noah.fsm.detailpage.view.View1",
+			"type": "XML",
+			"async": true,
+			"id": "View1"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ui.comp": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"queryModeler": {
+                "dataSource": "queryModelerService",
+                "type": "sap.ui.model.odata.v4.ODataModel",
+                "preload": true,
+                "settings" : {
+					"autoExpandSelect" : true,
+					"operationMode" : "Server",
+					"synchronizationMode" : "None",
+					"updateGroupId" : "UpdateGroup"
+				}
+            },
+			"": {
+				"dataSource": "mainService",
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "preload": true,
+                "settings" : {
+					"disableHeadRequestForToken": true,
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline"
+				}
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.iot.noah.fsm.detailpage.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "sap.iot.noah.fsm.detailpage.view",
+				"controlAggregation": "pages",
+				"controlId": "app",
+				"clearControlAggregation": false
+			},
+			"routes": [{
+				"name": "RouteView1",
+				"pattern": "RouteView1",
+				"target": ["TargetView1"]
+			}],
+			"targets": {
+				"TargetView1": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "View1",
+					"viewName": "View1"
+				}
+			}
+		}
+	}
+}

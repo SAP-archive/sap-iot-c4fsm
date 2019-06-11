@@ -1,0 +1,23 @@
+---
+applications:
+
+- name: fsm-proxy-v2
+  host: fsm-proxy-v2
+  path: target/fsm-0.0.1-SNAPSHOT.war
+  env:
+    destinations: >
+      [
+        {"name": "approuter", "url": "<<APPROUTER_HOST>>", "forwardAuthToken": true}
+      ]
+    HTML5_APPLICATIONS: >
+      [
+        {"thingType": "<<TENANT-PACKAGE-NAMESPACE>>.fsm.demo:Robot4000","appId": "sap.iot.noah.fsm.detailpage"}
+      ]
+    uaa: >
+      {
+        "url": "<<SAP_LEONARDO_IOT_UAA_HOST_URL>>",
+        "clientid": "<<CLIENT_ID>>"
+      }
+  services:
+    - fsm-backend
+    

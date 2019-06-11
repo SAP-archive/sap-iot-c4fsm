@@ -1,0 +1,12 @@
+{
+	"endpoints":{
+		"query":"/api/query/v1"
+	},
+	"cloudAccount" : "edgeservicesdemoaccount",
+	"objectType" : "SERVICECALL",
+	"companyName" : "SAP",
+	"desc": "A sample format for credentials",
+	"user": "admin",
+	"password": "Initial",
+	"sap.cloud.service":"scenario.com.sap.leonardo.iot.fsm"
+}

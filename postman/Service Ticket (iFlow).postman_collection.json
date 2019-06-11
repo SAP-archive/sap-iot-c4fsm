@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "2e826265-78f5-4564-a38a-b534f2ab3d9d",
+		"name": "Service Ticket (iFlow)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creation of Service Ticket through iFlow",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "{{CPI_PASSWORD}}",
+						"username": "{{CPI_USER}}"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serviceCall\": {\n        \"address\": {\n            \"city\": \"Buffalo\",\n            \"country\": \"US\",\n            \"state\": \"NY\",\n            \"street\": \"High Street\",\n            \"streetNumber\": \"123\",\n            \"zipCode\": \"12345\"\n        },\n        \"contact\": {\n            \"id\": \"6962664331854DD1877F3C6AA0AE9906\"\n        },\n        \"createPerson\": {\n            \"id\": \"697CAC93623C4570B135AA500289B22F\"\n        },\n        \"durationInMinutes\": 0,\n        \"earliestStartDateTime\": \"2019-03-18T02:00:00.000Z\",\n        \"equipments\": [\n            {\n                \"id\": \"06EF6711DBC24E30B479CC8653A6F9D4\"\n            }\n        ],\n        \"origin\": \"-4\",\n        \"priority\": \"MEDIUM\",\n        \"problemType\": \"-4\",\n        \"remarks\": \"Voltage is 7\",\n        \"resolution\": null,\n        \"responsibles\": [\n            {\n                \"id\": \"BE1971C76D964698A9BE78721937949D\"\n            }\n        ],\n        \"status\": \"-4\",\n        \"subject\": \"Noah FSM - Test Ankit\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{IFLOW_URL}}/?account={{FSM_ACCOUNT_NAME}}&company={{FSM_COMPANY}}&user={{FSM_USER}}",
+					"host": [
+						"{{IFLOW_URL}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "account",
+							"value": "{{FSM_ACCOUNT_NAME}}"
+						},
+						{
+							"key": "company",
+							"value": "{{FSM_COMPANY}}"
+						},
+						{
+							"key": "user",
+							"value": "{{FSM_USER}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

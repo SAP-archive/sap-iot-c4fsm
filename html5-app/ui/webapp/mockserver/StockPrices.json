@@ -1,0 +1,49 @@
+[{
+	"__metadata": {
+		"type": "LmcNameSpace.StockPrice"
+	},
+	"Date": "2011",
+	"Price": "20000",
+	"PriceTarget": "20000",
+	"Title": "MyChartTitleFromData",
+	"Description": "MyDescription",
+	"Currency": "Euro",
+	"ChartTitle": "This is chart title",
+	"Criticality": "Negative"
+}, {
+	"__metadata": {
+		"type": "LmcNameSpace.StockPrice"
+	},
+	"Date": "2012",
+	"Price": "20000",
+	"PriceTarget": "30000",
+	"Title": "MyChartTitleFromData",
+	"Description": "MyDescription",
+	"Currency": "Euro",
+	"ChartTitle": "This is chart title",
+	"Criticality": "Negative"
+}, {
+	"__metadata": {
+		"type": "LmcNameSpace.StockPrice"
+	},
+	"Date": "2013",
+	"Price": "20000",
+	"PriceTarget": "40000",
+	"Title": "MyChartTitleFromData",
+	"Description": "MyDescription",
+	"Currency": "Euro",
+	"ChartTitle": "This is chart title",
+	"Criticality": "Negative"
+}, {
+	"__metadata": {
+		"type": "LmcNameSpace.StockPrice"
+	},
+	"Date": "2014",
+	"Price": "55000",
+	"PriceTarget": "65000",
+	"Title": "MyChartTitleFromData",
+	"Description": "MyDescription",
+	"Currency": "Euro",
+	"ChartTitle": "This is chart title",
+	"Criticality": "Negative"
+}]

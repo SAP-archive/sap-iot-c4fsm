@@ -1,0 +1,42 @@
+{
+	"welcomeFile": "/fsm-ui/webapp/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [{
+		"source": "^/destinations/analytics-thing-sap/(.*)$",
+		"service": "com.sap.leonardo.iot",
+		"endpoint": "analytics-thing-sap",
+		"target": "$1",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^/destinations/advancedlist-thing-sap/(.*)$",
+		"service": "com.sap.leonardo.iot",
+		"endpoint": "advancedlist-thing-sap",
+		"target": "$1",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^/destinations/composite-events-odata/(.*)$",
+		"service": "com.sap.leonardo.iot",
+		"endpoint": "composite-events-odata",
+		"target": "$1",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^/destinations/details-thing-sap/(.*)$",
+		"service": "com.sap.leonardo.iot",
+		"endpoint": "details-thing-sap",
+		"target": "$1",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^/destinations/iotas-controls/(.*)$",
+		"destination": "IOTAS_CONTROLS",
+		"target": "$1",
+		"csrfProtection": false
+	}, {
+		"source": "^(.*)$",
+		"target": "$1",
+		"service": "html5-apps-repo-rt",
+		"authenticationType": "xsuaa"
+	}]
+}
