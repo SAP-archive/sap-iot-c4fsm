@@ -18,7 +18,7 @@ Navigate to `Tools`->`Update IoT Destinations` and fill the credentials of the t
 5.	Give a Project Name, Namespace and Title. Make sure the Namespace is unique from any other HTML5 Application that is created on this space and deployed in the HTML5 Application repository. Click on Next.
 
 Refer Example Screenshot Below:
-<img width="1743" alt="screen shot 2019-06-06 at 9 58 16 pm" src="https://github.wdf.sap.corp/storage/user/9832/files/4a0faa00-88a6-11e9-92a8-4fb1027e30fd">
+<img width="1743" alt="screen shot 2019-06-06 at 9 58 16 pm" src="images/NewProject.png">
 
 6.	Select **IOT-ADVANCEDLIST-THING-ODATA** service from the list of services available in the dropdown and Choose the Thing Types for which is the application is targetted. Select all PSTs for this Thing Type.
 
@@ -88,7 +88,7 @@ resources:
 
 Navigate to the HTML5 Application inside the project and right click on webapp to go to Run -> Run Configurations. Select `Run index.html` and choose the Target environment as `Run on Neo`. Click on Save and Run to run this Application through web-ide.
 
-<img width="1051" alt="screen shot 2019-06-06 at 10 35 02 pm" src="https://github.wdf.sap.corp/storage/user/9832/files/8396e400-88ab-11e9-8ece-9bfa6bbffe2d">
+<img width="1051" alt="screen shot 2019-06-06 at 10 35 02 pm" src="images/RunConfiguration.png">
 
 ## Navigating directly to a Detail Page
 
@@ -116,7 +116,7 @@ Or
 `{thingPageModel>/detailsData/<entity_type_name>/<property_name>} <unit_of_measure>`
 
 This is how a Layout Editor looks like:
-<img width="1596" alt="screen shot 2019-06-02 at 8 12 18 pm" src="https://github.wdf.sap.corp/storage/user/9832/files/115b9200-8581-11e9-888d-2899bff3c42a">
+<img width="1596" alt="screen shot 2019-06-02 at 8 12 18 pm" src="images/LayoutEditor.png">
 
 Few properties cannot be edited in this editor, for example - Object Page Header section.
 
@@ -126,7 +126,7 @@ To update this, open the `ThingPage.view.xml` using **Code Editor** and the bind
 
 For a better understaning of the structure of the UI code, refer the following image:  
 
-<img width="247" alt="screen shot 2019-06-06 at 10 38 04 pm" src="https://github.wdf.sap.corp/storage/user/9832/files/cb1d7000-88ab-11e9-9bae-3bd1ef49e452">
+<img width="247" alt="screen shot 2019-06-06 at 10 38 04 pm" src="images/AppFolderStructure.png">
 
 Following updates need to be made to run the IoT Template Application on CF:
 
@@ -272,7 +272,7 @@ Copy paste the content of ObjectPageSection at the same level with existing sect
 The value of properties like `minValue, maxValue, unitOfMeasure, lowerWarning, upperWarning, lowerError` etc can be edited based on the use case.
 
 Running the Object Page after changes will render the Object Page something like this:  
-![screen shot 2019-06-03 at 7 15 25 pm](https://github.wdf.sap.corp/storage/user/9832/files/fc8c0680-8633-11e9-998b-e4ee6fd73d73)
+![screen shot 2019-06-03 at 7 15 25 pm](images/WebContainerApp.png)
 
 ## Adding a new Data Source to consume in the application
 1.	Locate `manifest.json` inside webapp folder of the application and open it (using descriptor editor). Go to `Data Sources` and add a new data source by clicking on `+` icon.
