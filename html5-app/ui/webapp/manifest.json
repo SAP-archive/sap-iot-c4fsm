@@ -1,0 +1,194 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "sap.iot.noah.fsm.detailpage",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"EventService": {
+				"uri": "/destinations/composite-events-odata/CompositeEvents/EventType/v1/com.sap.appiot.eventtypes:StandardEventType/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/EventsMetadata/metadata.xml"
+				}
+			},
+			"Thing_Service1": {
+				"uri": "/destinations/details-thing-sap/CompositeThings/ThingType/v1/<<TENANT-PACKAGE-NAMESPACE>>.fsm.demo:Robot4000/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/Thing_Metadata1/metadata.xml"
+				}
+			},
+			"AnalyticsService": {
+				"uri": "/destinations/analytics-thing-sap/<<TENANT-PACKAGE-NAMESPACE>>.fsm.demo:ROBOT_BATTERY_MAIN/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		},
+		"title": "{{appTitle}}",
+		"resources": "resources.json",
+		"ach": "ach",
+		"sourceTemplate": {
+			"id": "ui.appbuilder.iotappmtatemplate",
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "sap.iot.noah.fsm.detailpage.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ui.vbm": {},
+				"sap.ui.iot": {},
+				"sap.uxap": {},
+				"sap.ui.unified": {},
+				"sap.viz": {},
+				"sap.ui.commons": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.iot.noah.fsm.detailpage.i18n.i18n"
+				}
+			},
+			"events": {
+				"dataSource": "EventService",
+				"preload": true,
+				"settings": {
+					"useBatch": false,
+					"defaultCountMode": "Inline"
+				}
+			},
+			"thingModel1": {
+				"dataSource": "Thing_Service1",
+				"preload": true,
+				"settings": {
+					"useBatch": false,
+					"defaultCountMode": "Inline"
+				}
+			},
+			"analyticsModel": {
+				"dataSource": "AnalyticsService",
+				"preload": true,
+				"settings": {
+					"useBatch": false,
+					"defaultCountMode": "Inline"
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.iot.noah.fsm.detailpage.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "landingpage",
+					"target": "thingpage"
+				},
+				{
+					"pattern": "analysispage/{thingId}/:navFrom:/:headerTitle:/:subHeaderTitle:/:mpPath:",
+					"name": "analysispage",
+					"target": "analysispage"
+				},
+				{
+					"pattern": "thingpage/{thingId}/{thingType}/:highSeverity:/:mediumSeverity:/:lowSeverity:",
+					"name": "thingpage",
+					"target": "thingpage"
+				},
+				{
+					"pattern": "thinglistpage",
+					"name": "thinglistpage",
+					"target": "thinglistpage"
+				}
+			],
+			"targets": {
+				"landingpage": {
+					"viewName": "LandingPage",
+					"viewId": "landingpage",
+					"viewLevel": 1
+				},
+				"analysispage": {
+					"viewName": "AnalysisPage",
+					"viewId": "analysispage",
+					"viewLevel": 1
+				},
+				"thingpage": {
+					"viewName": "ThingPage",
+					"viewId": "thingpage",
+					"viewLevel": 1
+				},
+				"thinglistpage": {
+					"viewName": "ThingListPage",
+					"viewId": "thinglistpage",
+					"viewLevel": 1
+				},
+				"objectNotFound": {
+					"viewName": "ObjectNotFound",
+					"viewId": "objectNotFound"
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewId": "notFound"
+				}
+			}
+		}
+	}
+}

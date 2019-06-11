@@ -1,0 +1,19 @@
+---
+applications:
+
+- name: fsm-approuter
+  host: fsm-approuter
+  path: virtual-approuter-0.0.1-SNAPSHOT.war
+  buildpack: sap_java_buildpack
+  parameters:
+    memory: 256M
+  env:
+    TARGET_RUNTIME: tomee
+    JBP_CONFIG_RESOURCE_CONFIGURATION: "['tomee/conf/server.xml': {'connector.maxHttpHeaderSize':32768}]"
+    destinations: >
+      [
+        {"name": "IOTAS_CONTROLS","url": "https://sapuiiot.cfapps.eu10.hana.ondemand.com", "forwardAuthToken": false, strictSSL:false }
+      ]
+  services:
+    - fsm_html5_repo_runtime
+    - <<LEONARDO_IOT_SERVICE>>

@@ -1,0 +1,153 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:iot="sap.ui.iot.controls" xmlns:m="sap.m"
+	xmlns:core="sap.ui.core" xmlns:suite="sap.suite.ui.commons" xmlns="sap.uxap" xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls" xmlns:iotele="sap.ui.iot.elements" xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="sap.iot.noah.fsm.detailpage.controller.ThingPage" displayBlock="true">
+	<m:Page title="{i18n>thingpage}" showNavButton="true" navButtonPress="handleNavBackPress">
+		<ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="false" showTitleInHeaderContent="false" showHeaderContent="true"
+			flexEnabled="true">
+			<headerTitle >
+				<ObjectPageHeader objectTitle="{thingPageModel>/detailsData/ThingName}" objectSubtitle="{thingPageModel>/detailsData/ThingName}"
+					objectImageAlt="{i18n>thing}" id="ObjectPageLayoutHeaderTitle" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
+					isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"></ObjectPageHeader>
+			</headerTitle>
+			<headerContent>
+				<m:HBox id="idSemanticBarHBox" width="0.5rem" height="5rem" class="objectSematicBar"/>
+				<layout:VerticalLayout>
+					<core:Icon src="sap-icon://machine" height="5rem" id="idHeaderIcon" size="4rem" visible="false" backgroundColor="white"
+						color="#d3d7d9"/>
+					<m:Image id="idHeaderImage" src="{parts:[{path:'thingPageModel>/detailsData/ThingType'}], formatter:'.formatter.formatImageURLThingPage'}"
+						alt="{i18n>noImage}" error="onImageLoadError" height="5rem" visible="true"/>
+				</layout:VerticalLayout>
+				<layout:VerticalLayout>
+					<m:ObjectStatus id="objectStatusLabel1" title="Equipment ID"/>
+					<m:ObjectStatus id="objectStatusText1" text="{thingPageModel>/detailsData/AlternateId}"/>
+				</layout:VerticalLayout>
+			</headerContent>
+			<sections>
+				<ObjectPageSection title="{i18n>basicData}">
+					<subSections>
+						<ObjectPageSubSection title="{i18n>basicData}">
+							<blocks>
+								<layout:Grid defaultSpan="XL4 L4 M6 S12">
+									<layout:VerticalLayout>
+										<m:Label text="Voltage"/>
+										<m:Text class="iotNoahDetailPageKpi"
+											text="{thingPageModel>/detailsData/DYN_ENT_<<TENANT-PACKAGE-NAMESPACE-UNDERSCORE-WITHOUT-DOTS>>_fsm_demo__ROBOT_BATTERY_MAIN/ROBOT_BATTERY_MAIN.VOLTAGE} V"/>
+									</layout:VerticalLayout>
+									<layout:VerticalLayout>
+										<m:Label text="Model Type"/>
+										<m:Text class="iotNoahDetailPageKpi"
+											text="{thingPageModel>/detailsData/DYN_ENT_<<TENANT-PACKAGE-NAMESPACE-UNDERSCORE-WITHOUT-DOTS>>_fsm_demo__ROBOT_METADATA/ROBOT_METADATA.MODEL_TYPE}"/>
+									</layout:VerticalLayout>
+								</layout:Grid>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection title="Current Voltage">
+					<subSections>
+						<ObjectPageSubSection title="Current Voltage">
+							<blocks>
+								<iot:IoTGauge xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+									cd:w5g.dt.context="/Things/DYN_ENT_<<TENANT-PACKAGE-NAMESPACE-UNDERSCORE-WITHOUT-DOTS>>_fsm_demo__ROBOT_BATTERY_MAIN"
+									value="{thingPageModel>/detailsData/DYN_ENT_<<TENANT-PACKAGE-NAMESPACE-UNDERSCORE-WITHOUT-DOTS>>_fsm_demo__ROBOT_BATTERY_MAIN/ROBOT_BATTERY_MAIN.VOLTAGE}"
+									minValue="0" maxValue="20" unitOfMeasure="V" lowerWarning="5" upperWarning="10" lowerError="15" upperError="18" id="tgauge0"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection title="Time Series Data">
+					<subSections>
+						<ObjectPageSubSection title="Time Series Data">
+							<blocks>
+								<layout:FixFlex id='chartFixFlex' minFlexSize="250">
+									<!--Below is the setting panel -->
+									<layout:fixContent>
+										<m:Panel id='settingsPanel' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
+											<m:content>
+												<m:HBox class='settingsHBox'>
+													<m:VBox width="200px">
+														<m:Label text='{chartSettings>/chartType/name}' design="Bold" class='settingsLabel'></m:Label>
+														<m:Select id='chartTypeSelect' class='settingsSelect' selectedKey='{chartSettings>/chartType/defaultSelected}' 
+															maxWidth="150px"
+															change='onChartTypeChanged' items="{path: 'chartSettings>/chartType/values'}">
+															<m:items>
+																<core:Item text="{chartSettings>name}" key="{chartSettings>key}"/>
+															</m:items>
+														</m:Select>
+													</m:VBox>
+												</m:HBox>
+											</m:content>
+										</m:Panel>
+									</layout:fixContent>
+									<layout:flexContent>
+										<viz:Popover id="idPopOver"></viz:Popover>
+										<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='timeseries_line'>
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{thingPageModel>/data}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition name="Date" value="{time}" dataType="date"/>
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="Voltage" value="{VOLTAGE_AVG}"/>
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Voltage"/>
+												<viz.feeds:FeedItem uid="timeAxis" type="Dimension" values="Date"/>
+											</viz:feeds>
+										</viz:VizFrame>
+									</layout:flexContent>
+								</layout:FixFlex>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection title="Event List">
+					<subSections>
+						<ObjectPageSubSection title="Event List">
+							<blocks>
+								<iot:IoTEventList id="idEventList" height="500px" RowSelect="onEventListSelect" events="{events>/Events}">
+									<iot:columns>
+										<iotele:IoTEventListColumnHeader text="Event"/>
+										<iotele:IoTEventListColumnHeader text="Business Timestamp"/>
+										<iotele:IoTEventListColumnHeader text="Status"/>
+										<iotele:IoTEventListColumnHeader text="Severity"/>
+									</iot:columns>
+									<iot:events>
+										<iotele:IoTEventListElement>
+											<iotele:cells>
+												<iotele:IoTEventListColumn text="{events>Description}"/>
+												<iotele:IoTEventListColumn text="{events>BusinessTimestamp}"/>
+												<iotele:IoTEventListColumn text="{events>Status}"/>
+												<iotele:IoTEventListColumn text="{events>Severity}"/>
+											</iotele:cells>
+										</iotele:IoTEventListElement>
+									</iot:events>
+								</iot:IoTEventList>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection title="{i18n>timeline}">
+					<subSections>
+						<ObjectPageSubSection title="{i18n>timeline}">
+							<blocks>
+								<suite:Timeline id="idTimeline" growing="false" enableScroll="false" enableDoubleSided="true" showHeaderBar="false" showSearch="false"
+									showIcons="false" content="{thingPageModel>/eventsData}" showFilterBar="false">
+									<suite:content>
+										<suite:TimelineItem title="{thingPageModel>ExternalId}"
+											dateTime="{parts:[{path:'thingPageModel>BusinessTimestamp'}], formatter:'.formatter.formatTimeStamp'}" userNameClickable="false"
+											text="{thingPageModel>Description}"></suite:TimelineItem>
+									</suite:content>
+								</suite:Timeline>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+			</sections>
+		</ObjectPageLayout>
+	</m:Page>
+</mvc:View>

@@ -1,0 +1,22 @@
+{
+	"xsappname": "FSMApp",
+	"tenant-mode": "dedicated",
+	"oauth2-configuration": {
+		"token-validity": 900,
+		"system-attributes": [
+			"rolecollections",
+			"groups"
+		]
+	},
+	"description": "Security profile of called application",
+	"foreign-scope-references": ["$ACCEPT_GRANTED_SCOPES"],
+	"scopes": [],
+	"role-templates": [{
+			"name": "Admin",
+			"description": "Functional authorization for the ThingModeller UI",
+			"scope-references": [
+				"uaa.user"
+			]
+		}
+	]
+}

@@ -1,0 +1,12 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.ui.comp.smartmicrochart" 
+	xmlns:m="sap.m" controllerName="sap.iot.noah.fsm.detailpage.controller.View1" height="100%">
+	<m:Page id="page" title="SmartLineMicroChart">
+		<m:Panel headerText="Stock price value and target value" class="sapUiSmallMarginBottom">
+			<SmartLineMicroChart id="idLineChart" entitySet="StockPrices" chartBindingPath="/StockPrices" />
+			<m:Label text="Title association:" design="Bold" class="sapUiSmallMarginTop" />
+			<m:Label id="chartTitle" />
+		</m:Panel>
+	</m:Page>
+</mvc:View>
