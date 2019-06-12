@@ -46,6 +46,9 @@ Release : 4.0 ( 1904 ).
 - Service Call API Version : V2
 - Mobile Application Support : iPhone, iOS 12.3.1, Protocal Version : 5
 - Coresuite 6.1.1.0
+- DTO's
+    - Equipment : 17
+    - Service Call : 17
 
 ##### SAP UI5
 * Release : 1.66.1
