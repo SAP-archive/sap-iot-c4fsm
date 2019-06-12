@@ -33,8 +33,6 @@ As the source code needs to be deployed in cloud platform account, Please follow
 
 We provided some example configuration for e.g. the Connected Silo in the source files that might be helpful to get you started. We also illustrated the Thing Model and you can configure it in Leonardo IoT via the Thing Modeler apps.
 
-
-
 ## Version Compatibility
 ##### SAP Leonardo IoT
 Release : 1905
@@ -78,4 +76,4 @@ The content is provided "as-is". There is no guarantee that raised issues will b
 
 ## License
 Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
-This file is licensed under the SAP Sample Code License, v1.0 except as noted otherwise in the [LICENSE file](/LICENSE.pdf)
+This file is licensed under the SAP Sample Code License, v1.0 except as noted otherwise in the [LICENSE file](/LICENSE)
