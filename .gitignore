@@ -1,1 +1,6 @@
 *.zip
+.mta
+*.mtar
+package-lock.json
+*/ui_deployer/resources
+node_modules
